@@ -13,13 +13,13 @@ const DepartmentBarChart = () => {
       <h3 className="text-sm font-semibold text-foreground mb-4">Fraud Cases by Department</h3>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={departmentData}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(222, 30%, 18%)" />
-          <XAxis dataKey="department" tick={{ fill: "hsl(215, 20%, 55%)", fontSize: 11 }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fill: "hsl(215, 20%, 55%)", fontSize: 11 }} axisLine={false} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(210, 15%, 90%)" />
+          <XAxis dataKey="department" tick={{ fill: "hsl(215, 15%, 50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fill: "hsl(215, 15%, 50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
           <Tooltip
-            contentStyle={{ backgroundColor: "hsl(222, 47%, 10%)", border: "1px solid hsl(222, 30%, 22%)", borderRadius: "0.75rem", color: "hsl(210, 40%, 96%)" }}
+            contentStyle={{ backgroundColor: "hsl(0, 0%, 100%)", border: "1px solid hsl(210, 15%, 88%)", borderRadius: "0.75rem", color: "hsl(215, 25%, 15%)" }}
           />
-          <Bar dataKey="cases" fill="hsl(217, 91%, 60%)" radius={[6, 6, 0, 0]} />
+          <Bar dataKey="cases" fill="hsl(197, 100%, 47%)" radius={[6, 6, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
     </motion.div>

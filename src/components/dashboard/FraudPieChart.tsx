@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { fraudVsSafeData } from "@/data/mockData";
 
 const FraudPieChart = () => {
@@ -28,7 +28,7 @@ const FraudPieChart = () => {
             ))}
           </Pie>
           <Tooltip
-            contentStyle={{ backgroundColor: "hsl(222, 47%, 10%)", border: "1px solid hsl(222, 30%, 22%)", borderRadius: "0.75rem", color: "hsl(210, 40%, 96%)" }}
+            contentStyle={{ backgroundColor: "hsl(0, 0%, 100%)", border: "1px solid hsl(210, 15%, 88%)", borderRadius: "0.75rem", color: "hsl(215, 25%, 15%)" }}
             formatter={(value: number) => `${value}%`}
           />
         </PieChart>

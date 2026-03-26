@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
+import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
 import { emailsScannedData } from "@/data/mockData";
 
 const EmailsLineChart = () => {
@@ -15,17 +15,17 @@ const EmailsLineChart = () => {
         <AreaChart data={emailsScannedData}>
           <defs>
             <linearGradient id="emailGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0.3} />
-              <stop offset="100%" stopColor="hsl(217, 91%, 60%)" stopOpacity={0} />
+              <stop offset="0%" stopColor="hsl(197, 100%, 47%)" stopOpacity={0.3} />
+              <stop offset="100%" stopColor="hsl(197, 100%, 47%)" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(222, 30%, 18%)" />
-          <XAxis dataKey="date" tick={{ fill: "hsl(215, 20%, 55%)", fontSize: 11 }} axisLine={false} tickLine={false} />
-          <YAxis tick={{ fill: "hsl(215, 20%, 55%)", fontSize: 11 }} axisLine={false} tickLine={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="hsl(210, 15%, 90%)" />
+          <XAxis dataKey="date" tick={{ fill: "hsl(215, 15%, 50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
+          <YAxis tick={{ fill: "hsl(215, 15%, 50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
           <Tooltip
-            contentStyle={{ backgroundColor: "hsl(222, 47%, 10%)", border: "1px solid hsl(222, 30%, 22%)", borderRadius: "0.75rem", color: "hsl(210, 40%, 96%)" }}
+            contentStyle={{ backgroundColor: "hsl(0, 0%, 100%)", border: "1px solid hsl(210, 15%, 88%)", borderRadius: "0.75rem", color: "hsl(215, 25%, 15%)" }}
           />
-          <Area type="monotone" dataKey="emails" stroke="hsl(217, 91%, 60%)" fill="url(#emailGradient)" strokeWidth={2} dot={{ r: 3, fill: "hsl(217, 91%, 60%)" }} />
+          <Area type="monotone" dataKey="emails" stroke="hsl(197, 100%, 47%)" fill="url(#emailGradient)" strokeWidth={2} dot={{ r: 3, fill: "hsl(197, 100%, 47%)" }} />
         </AreaChart>
       </ResponsiveContainer>
     </motion.div>
