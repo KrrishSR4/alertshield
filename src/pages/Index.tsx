@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Mail, ShieldAlert, ShieldCheck, Target, PoundSterling, Download } from "lucide-react";
+import { Mail, ShieldAlert, ShieldCheck, Target, PoundSterling, Download, Loader2 } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 import Navbar from "@/components/dashboard/Navbar";
 import KpiCard from "@/components/dashboard/KpiCard";
 import EmailsLineChart from "@/components/dashboard/EmailsLineChart";
@@ -8,21 +9,38 @@ import FraudPieChart from "@/components/dashboard/FraudPieChart";
 import DepartmentBarChart from "@/components/dashboard/DepartmentBarChart";
 import FraudTable from "@/components/dashboard/FraudTable";
 import SummaryCard from "@/components/dashboard/SummaryCard";
-import { kpiData, recentFraudCases, departments } from "@/data/mockData";
+import { departments } from "@/data/mockData";
+import { fetchDashboardData } from "@/services/api";
 
 const Index = () => {
   const [selectedDepartment, setSelectedDepartment] = useState("All");
 
-  const filteredCases = selectedDepartment === "All"
-    ? recentFraudCases
-    : recentFraudCases.filter((c) => c.department === selectedDepartment);
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['dashboard', selectedDepartment],
+    queryFn: () => fetchDashboardData(selectedDepartment),
+  });
+
+  if (isLoading || !data) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="w-8 h-8 text-primary animate-spin" />
+          <p className="text-muted-foreground font-medium">Loading Dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="min-h-screen bg-background p-6 flex items-center justify-center text-destructive">Failed to load dashboard data.</div>;
+  }
 
   const kpis = [
-    { title: "Total Emails Scanned", value: kpiData.totalScanned.toLocaleString(), icon: Mail },
-    { title: "Fraud Emails Detected", value: kpiData.fraudDetected.toLocaleString(), icon: ShieldAlert },
-    { title: "Safe Emails", value: kpiData.safeEmails.toLocaleString(), icon: ShieldCheck },
-    { title: "Detection Accuracy", value: `${kpiData.accuracy}%`, icon: Target },
-    { title: "Money Saved", value: `£${(kpiData.moneySaved / 1000000).toFixed(1)}M`, icon: PoundSterling },
+    { title: "Total Emails Scanned", value: data.kpis.totalScanned.toLocaleString(), icon: Mail },
+    { title: "Fraud Emails Detected", value: data.kpis.fraudDetected.toLocaleString(), icon: ShieldAlert },
+    { title: "Safe Emails", value: data.kpis.safeEmails.toLocaleString(), icon: ShieldCheck },
+    { title: "Detection Accuracy", value: `${data.kpis.accuracy}%`, icon: Target },
+    { title: "Money Saved", value: `£${(data.kpis.moneySaved / 1000000).toFixed(1)}M`, icon: PoundSterling },
   ];
 
   return (
@@ -42,17 +60,17 @@ const Index = () => {
 
       {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <EmailsLineChart />
-        <FraudPieChart />
-        <DepartmentBarChart />
+        <EmailsLineChart data={data.charts.emailsScanned} />
+        <FraudPieChart data={data.charts.fraudVsSafe} />
+        <DepartmentBarChart data={data.charts.departmentCases} />
       </div>
 
       {/* Table + Summary */}
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
         <div className="lg:col-span-3">
-          <FraudTable cases={filteredCases} />
+          <FraudTable cases={data.cases} />
         </div>
-        <SummaryCard />
+        <SummaryCard data={data.performance} />
       </div>
 
       {/* Download Button */}
@@ -67,7 +85,7 @@ const Index = () => {
           whileTap={{ scale: 0.97 }}
           onClick={() => {
             const headers = ["Employee","Department","Email ID","Fraud Status","System Decision","Human Verification","Timestamp"];
-            const rows = filteredCases.map(c => [c.employee, c.department, c.emailId, c.fraudStatus, c.systemDecision, c.humanVerification, c.timestamp]);
+            const rows = data.cases.map(c => [c.employee, c.department, c.emailId, c.fraudStatus, c.systemDecision, c.humanVerification, c.timestamp]);
             const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(",")).join("\n");
             const blob = new Blob([csv], { type: "text/csv" });
             const url = URL.createObjectURL(blob);

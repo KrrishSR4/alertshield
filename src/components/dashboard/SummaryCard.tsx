@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
-import { summaryData } from "@/data/mockData";
 import { Target, AlertTriangle, XCircle } from "lucide-react";
 
-const SummaryCard = () => {
+interface SummaryCardProps {
+  data: {
+    accuracy: number;
+    falsePositives: number;
+    falseNegatives: number;
+  };
+}
+
+const SummaryCard = ({ data }: SummaryCardProps) => {
   const items = [
-    { label: "Accuracy", value: `${summaryData.accuracy}%`, icon: Target, color: "text-primary" },
-    { label: "False Positives", value: String(summaryData.falsePositives), icon: AlertTriangle, color: "text-warning" },
-    { label: "False Negatives", value: String(summaryData.falseNegatives), icon: XCircle, color: "text-destructive" },
+    { label: "Accuracy", value: `${data.accuracy}%`, icon: Target, color: "text-primary" },
+    { label: "False Positives", value: String(data.falsePositives), icon: AlertTriangle, color: "text-warning" },
+    { label: "False Negatives", value: String(data.falseNegatives), icon: XCircle, color: "text-destructive" },
   ];
 
   return (

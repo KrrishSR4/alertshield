@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
-import { fraudVsSafeData } from "@/data/mockData";
 
-const FraudPieChart = () => {
+interface FraudPieChartProps {
+  data: { name: string; value: number; color: string }[];
+}
+
+const FraudPieChart = ({ data }: FraudPieChartProps) => {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -14,7 +17,7 @@ const FraudPieChart = () => {
       <ResponsiveContainer width="100%" height={220}>
         <PieChart>
           <Pie
-            data={fraudVsSafeData}
+            data={data}
             cx="50%"
             cy="50%"
             innerRadius={55}
@@ -23,7 +26,7 @@ const FraudPieChart = () => {
             stroke="none"
             label={({ name, value }) => `${name} ${value}%`}
           >
-            {fraudVsSafeData.map((entry, index) => (
+            {data.map((entry, index) => (
               <Cell key={index} fill={entry.color} />
             ))}
           </Pie>

@@ -17,7 +17,7 @@ const Navbar = ({ selectedDepartment, onDepartmentChange, departments }: NavbarP
       className="bg-primary px-6 py-3 flex items-center justify-between rounded-2xl"
     >
       <div className="flex items-center gap-4">
-        <img src={barclaysLogo} alt="Barclays Logo" className="h-16 brightness-0 invert" />
+        <img src={barclaysLogo} alt="Barclays Logo" className="h-24 brightness-0 invert object-contain" />
         <div className="h-8 w-px bg-primary-foreground/30" />
         <div>
           <h1 className="text-lg font-bold text-primary-foreground tracking-tight">Fraud Detection Dashboard</h1>

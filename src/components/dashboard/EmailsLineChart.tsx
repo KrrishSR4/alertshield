@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Area, AreaChart } from "recharts";
-import { emailsScannedData } from "@/data/mockData";
 
-const EmailsLineChart = () => {
+interface EmailsLineChartProps {
+  data: { date: string; emails: number }[];
+}
+
+const EmailsLineChart = ({ data }: EmailsLineChartProps) => {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -12,7 +15,7 @@ const EmailsLineChart = () => {
     >
       <h3 className="text-sm font-semibold text-foreground mb-4">Emails Scanned – Last 30 Days</h3>
       <ResponsiveContainer width="100%" height={220}>
-        <AreaChart data={emailsScannedData}>
+        <AreaChart data={data}>
           <defs>
             <linearGradient id="emailGradient" x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor="hsl(197, 100%, 47%)" stopOpacity={0.3} />

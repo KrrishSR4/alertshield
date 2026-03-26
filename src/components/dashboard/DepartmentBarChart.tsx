@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
-import { departmentData } from "@/data/mockData";
 
-const DepartmentBarChart = () => {
+interface DepartmentBarChartProps {
+  data: { department: string; cases: number }[];
+}
+
+const DepartmentBarChart = ({ data }: DepartmentBarChartProps) => {
   return (
     <motion.div
       initial={{ y: 20, opacity: 0 }}
@@ -12,7 +15,7 @@ const DepartmentBarChart = () => {
     >
       <h3 className="text-sm font-semibold text-foreground mb-4">Fraud Cases by Department</h3>
       <ResponsiveContainer width="100%" height={220}>
-        <BarChart data={departmentData}>
+        <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" stroke="hsl(210, 15%, 90%)" />
           <XAxis dataKey="department" tick={{ fill: "hsl(215, 15%, 50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
           <YAxis tick={{ fill: "hsl(215, 15%, 50%)", fontSize: 11 }} axisLine={false} tickLine={false} />
