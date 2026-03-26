@@ -65,6 +65,18 @@ const Index = () => {
         <motion.button
           whileHover={{ scale: 1.04 }}
           whileTap={{ scale: 0.97 }}
+          onClick={() => {
+            const headers = ["Employee","Department","Email ID","Fraud Status","System Decision","Human Verification","Timestamp"];
+            const rows = filteredCases.map(c => [c.employee, c.department, c.emailId, c.fraudStatus, c.systemDecision, c.humanVerification, c.timestamp]);
+            const csv = [headers, ...rows].map(r => r.map(v => `"${v}"`).join(",")).join("\n");
+            const blob = new Blob([csv], { type: "text/csv" });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "fraud-report.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+          }}
           className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-xl font-semibold text-sm shadow-lg shadow-primary/25 transition-shadow hover:shadow-xl hover:shadow-primary/30"
         >
           <Download className="w-4 h-4" />
