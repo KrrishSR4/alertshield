@@ -14,30 +14,30 @@ const Navbar = ({ selectedDepartment, onDepartmentChange, departments }: NavbarP
       initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-primary px-6 py-4 flex items-center justify-between rounded-2xl"
+      className="bg-primary px-6 py-3 flex items-center justify-between rounded-2xl"
     >
-      <div className="flex items-center gap-3">
-        <img src={barclaysLogo} alt="Barclays Logo" className="h-8 brightness-0 invert" />
-        <div className="h-6 w-px bg-primary-foreground/30" />
+      <div className="flex items-center gap-4">
+        <img src={barclaysLogo} alt="Barclays Logo" className="h-12 brightness-0 invert" />
+        <div className="h-8 w-px bg-primary-foreground/30" />
         <div>
           <h1 className="text-lg font-bold text-primary-foreground tracking-tight">Fraud Detection Dashboard</h1>
           <p className="text-xs text-primary-foreground/70">Real-time monitoring & analytics</p>
         </div>
       </div>
 
-      <div className="relative flex items-center">
-        <label className="text-xs text-primary-foreground/80 mr-2">Filter by Department:</label>
-        <div className="inline-flex items-center gap-1 bg-primary-foreground/15 border border-primary-foreground/20 px-3 py-2 rounded-xl text-sm cursor-pointer">
+      <div className="relative flex items-center gap-2">
+        <label className="text-xs font-medium text-primary-foreground/80">Filter by Department:</label>
+        <div className="relative">
           <select
             value={selectedDepartment}
             onChange={(e) => onDepartmentChange(e.target.value)}
-            className="bg-transparent text-primary-foreground outline-none cursor-pointer appearance-none pr-5"
+            className="bg-primary-foreground text-foreground outline-none cursor-pointer appearance-none pl-4 pr-9 py-2 rounded-xl text-sm font-medium shadow-sm border-none focus:ring-2 focus:ring-primary-foreground/50"
           >
             {departments.map((d) => (
-              <option key={d} value={d} className="bg-card text-foreground">{d}</option>
+              <option key={d} value={d}>{d}</option>
             ))}
           </select>
-          <ChevronDown className="w-4 h-4 text-primary-foreground/70 absolute right-3 pointer-events-none" />
+          <ChevronDown className="w-4 h-4 text-muted-foreground absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
         </div>
       </div>
     </motion.nav>
